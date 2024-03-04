@@ -19,7 +19,7 @@ result:<br>
 
 # Drawing images
 Now, lets draw image. for example, i'll take this one called 'table.png'.
-![table](https://github.com/Monsler/Flow2D/assets/105060825/621e002a-9de1-4088-ba9d-d54fd5100df3)
+<img src="https://github.com/Monsler/Flow2D/assets/105060825/621e002a-9de1-4088-ba9d-d54fd5100df3" width="40%">
 <br>
 ```lua
 flow.start = function(args)
