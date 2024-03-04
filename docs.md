@@ -166,3 +166,22 @@ Methods:
 ```lua
 physics.collides({x, y, width, height}, {x, y, width, height})
 ```
+
+# Getting and Setting window params
+```lua
+graphics.width() -- Returns width of the Window
+graphics.height() -- Returns height of the Window
+graphics.repaint() -- Repaints window
+system.setWindowTitle(text) -- Sets window title
+system.setResizable([true or false])
+system.centerFrame() -- Centers position of window to center of screen
+system.setWindowSize(width, height) -- Sets the size of window
+system.setIcon(filename) -- Sets icon of window
+```
+
+# Other system module functions
+```lua
+system.wait(millis) -- Async wait function
+system.getPressedKey() -- Returns number of pressed key.
+system.log(text) -- Log information to output
+```
