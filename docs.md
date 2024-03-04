@@ -90,3 +90,22 @@ end
 ```
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/2918d7a9-fdfe-4fd9-b59f-a5c90df30b0b)
 
+# Drawing text
+Syntax:
+```lua
+graphics.drawText(text, {x, y})
+```
+
+Example with setting a font:
+```lua
+flow.start = function(args)
+    -- Function that will be invoked on start
+end
+
+flow.draw = function()
+    graphics.setFont('Consolas', 25)
+    graphics.drawText('test', {25, 40})
+end
+```
+![image](https://github.com/Monsler/Flow2D/assets/105060825/3b8bc426-5417-4e3c-9f0a-191d453ed6d9)
+
