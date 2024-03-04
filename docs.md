@@ -18,4 +18,22 @@ Syntax:
 graphics.fillRect({x, y, width, height}
 ```
 
+Example:
+```lua
+flow.start = function(args)
+    -- Function that will be invoked on start
+end
+
+flow.draw = function()
+    graphics.fillRect({0, 0, 100, 100})
+end
+```
+![image](https://github.com/Monsler/Flow2D/assets/105060825/6218d852-f95f-4604-8a1a-eca543790c75)
+
+
 <br>
+
+> Oval
+
+Syntax:
+
