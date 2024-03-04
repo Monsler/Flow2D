@@ -1,6 +1,6 @@
 # Flow2D
 Flow2D Are free and open source game engine (framework), that allows you to create beautiful 2d games using lua.
-You can read documentation [here](https://github.com/Monsler/Flow2D/docs.md).
+You can read documentation [here](https://github.com/Monsler/Flow2D/blob/main/docs.md).
 # Getting started
 This code will draw rectange inside the window.
 ```lua
