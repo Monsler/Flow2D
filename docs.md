@@ -1,3 +1,21 @@
+# Setup project
+Add library to your java project. Now you can use Runner class. Methods:
+```java
+Runner.runFromString(code, args)
+Runner.runFromFile(filename, args)
+```
+Example:
+```java
+import org.flow.Runner;
+
+public class Main {
+    public static void main(String[] args){
+        Runner.runFromFile("main.lua", args);
+    }
+}
+
+```
+
 # Syntax
 Default startup code of Flow2D project looks like:
 ```lua
@@ -131,4 +149,20 @@ end
 ```
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/7668fb27-e7ba-4975-935f-41491ed9933d)
 
+# Audio
+Example:
+```lua
+local sound1 = audio.load('beep.wav')
+sound1.play()
+```
+There are also
+```lua
+sound1.stop()
+```
+method.
 
+# Physics
+Methods:
+```lua
+physics.collides({x, y, width, height}, {x, y, width, height})
+```
