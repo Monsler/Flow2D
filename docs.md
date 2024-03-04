@@ -109,3 +109,26 @@ end
 ```
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/3b8bc426-5417-4e3c-9f0a-191d453ed6d9)
 
+# Loading font from files
+Syntax:
+```lua
+graphics.loadFont(filename)
+```
+
+Example:
+```lua
+flow.start = function(args)
+    -- Function that will be invoked on start
+    graphics.loadFont('Montserrat.ttf')
+end
+
+flow.draw = function()
+    graphics.setFont('Montserrat', 25)
+    graphics.drawText('Montserrat font, loaded from file', {25, 40})
+    graphics.setFont('Consolas', 25)
+    graphics.drawText('Consolas font', {25, 70})
+end
+```
+![image](https://github.com/Monsler/Flow2D/assets/105060825/7668fb27-e7ba-4975-935f-41491ed9933d)
+
+
