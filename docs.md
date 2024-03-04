@@ -52,4 +52,23 @@ end
 ```
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/5769d870-cf09-4c26-a692-d5b3bac171e3)
 
+> Setup a color for each shape
+
+Syntax:
+```lua
+graphics.setColor('HEX color')
+```
+Example:
+```lua
+flow.start = function(args)
+    -- Function that will be invoked on start
+end
+
+flow.draw = function()
+    graphics.setColor('#FF0000')
+    graphics.fillOval({25, 25, 100, 100})
+end
+```
+![image](https://github.com/Monsler/Flow2D/assets/105060825/895e62d8-a649-46b8-8417-ba44ba1a00f1)
+
 
