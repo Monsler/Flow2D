@@ -11,5 +11,5 @@ flow.draw = function()
     graphics.fillRect({25, 25, 50, 50})
 end
 ```
-result:
+result:<br>
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/106c5610-f069-403f-a6b1-6e998c750b83)
