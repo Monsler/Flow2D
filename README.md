@@ -13,5 +13,5 @@ end
 ```
 result:<br>
 <div style="text-align: center;">
-<img src="https://github.com/Monsler/Flow2D/assets/105060825/106c5610-f069-403f-a6b1-6e998c750b83">
+<img width="50%" src="https://github.com/Monsler/Flow2D/assets/105060825/106c5610-f069-403f-a6b1-6e998c750b83">
 </div>
