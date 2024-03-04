@@ -71,4 +71,22 @@ end
 ```
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/895e62d8-a649-46b8-8417-ba44ba1a00f1)
 
+# Displaying image
+Syntax:
+```lua
+graphics.drawImage(filename, {x, y, width, height})
+```
+
+Example:
+```lua
+flow.start = function(args)
+    -- Function that will be invoked on start
+end
+
+flow.draw = function()
+    graphics.setBackground('#FFFFFF')
+    graphics.drawImage('table.png', {0, 0, 70, 70})
+end
+```
+![image](https://github.com/Monsler/Flow2D/assets/105060825/2918d7a9-fdfe-4fd9-b59f-a5c90df30b0b)
 
