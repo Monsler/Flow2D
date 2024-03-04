@@ -14,5 +14,6 @@ Inside the body of <bold>flow.draw</bold> you have to put some code to draw prim
 <h2>Rectangle</h2>
 Syntax:
 ```lua
-graphics.fillRect({x, y, width, height}```
+graphics.fillRect({x, y, width, height}
+```
 <br>
