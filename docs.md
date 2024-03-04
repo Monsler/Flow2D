@@ -36,4 +36,20 @@ end
 > Oval
 
 Syntax:
+```lua
+graphics.fillOval({x, y, width, height})
+```
+
+Example:
+```lua
+flow.start = function(args)
+    -- Function that will be invoked on start
+end
+
+flow.draw = function()
+    graphics.fillOval({25, 25, 100, 100})
+end
+```
+![image](https://github.com/Monsler/Flow2D/assets/105060825/5769d870-cf09-4c26-a692-d5b3bac171e3)
+
 
