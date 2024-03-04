@@ -11,7 +11,7 @@ end
 ```
 Inside the body of <bold>flow.draw</bold> you have to put some code to draw primitives.
 # Basic shapes
-<h2>Rectangle</h2>
+> Rectangle
 
 Syntax:
 ```lua
