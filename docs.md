@@ -187,4 +187,5 @@ system.wait(millis) -- Async wait function
 system.getPressedKey() -- Returns number of pressed key.
 system.log(text) -- Log information to output
 system.engineVersion() -- Returns the version of engine
+system.mousePressed() -- Returns true or false of mouse pressed state
 ```
