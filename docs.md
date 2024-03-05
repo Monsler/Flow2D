@@ -97,16 +97,18 @@ graphics.drawImage(filename, {x, y, width, height})
 
 Example:
 ```lua
+local img = 0
 flow.start = function(args)
     -- Function that will be invoked on start
+    img = image.open('table.png')
+    graphics.setBackground('#FFFFFF')
 end
 
 flow.draw = function()
-    graphics.setBackground('#FFFFFF')
-    graphics.drawImage('table.png', {0, 0, 70, 70})
+    graphics.drawImage(img.getImage(), {graphics.getMouseX()-50 , graphics.getMouseY()-50, 100, 100})
 end
 ```
-![image](https://github.com/Monsler/Flow2D/assets/105060825/2918d7a9-fdfe-4fd9-b59f-a5c90df30b0b)
+![image](https://github.com/Monsler/Flow2D/assets/105060825/28521807-a7df-4c33-bce9-0333ed8d1abb)
 
 # Drawing text
 Syntax:
@@ -184,4 +186,5 @@ system.setIcon(filename) -- Sets icon of window
 system.wait(millis) -- Async wait function
 system.getPressedKey() -- Returns number of pressed key.
 system.log(text) -- Log information to output
+system.engineVersion() -- Returns the version of engine
 ```
