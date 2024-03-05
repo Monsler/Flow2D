@@ -154,7 +154,7 @@ end
 # Audio
 Example:
 ```lua
-local sound1 = audio.load('beep.wav')
+local sound1 = audio.read('beep.wav')
 sound1.play()
 ```
 There are also
