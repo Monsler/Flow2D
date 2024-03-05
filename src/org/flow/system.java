@@ -9,9 +9,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class system extends ZeroArgFunction {
     private int lastPressedKey = 0;
+    private int pressedMouse = 0;
     @Override
     public LuaValue call() {
         LuaValue lib = tableOf();
@@ -123,6 +126,29 @@ public class system extends ZeroArgFunction {
                 }
                 Runner.base.setVisible(true);
                 return null;
+            }
+        });
+        Runner.pane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                pressedMouse = 1;
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                pressedMouse = 0;
+            }
+        });
+        lib.set("mousePressed", new ZeroArgFunction() {
+            @Override
+            public LuaValue call() {
+                if(pressedMouse == 1){
+                    return valueOf(true);
+                }else{
+                    return valueOf(false);
+                }
             }
         });
         return lib;
