@@ -108,7 +108,7 @@ flow.draw = function()
     graphics.drawImage(img.getImage(), {graphics.getMouseX()-50 , graphics.getMouseY()-50, 100, 100})
 end
 ```
-![image](https://github.com/Monsler/Flow2D/assets/105060825/28521807-a7df-4c33-bce9-0333ed8d1abb)
+![image](https://github.com/Monsler/Flow2D/assets/105060825/1aa8ade0-bea1-4bf5-9d39-178e6eed3f64)
 
 # Drawing text
 Syntax:
