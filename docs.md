@@ -114,7 +114,6 @@ end
 
 ![sprite](https://github.com/Monsler/Flow2D/assets/105060825/88ec3586-ddaa-40bf-aaa5-9c3d96312968)
 
-<br>
 Example:
 ```lua
 local game = {}
