@@ -211,6 +211,14 @@ system.centerFrame() -- Centers position of window to center of screen
 system.setWindowSize(width, height) -- Sets the size of window
 system.setIcon(filename) -- Sets icon of window
 ```
+# Importing a plugin
+There in Flow2D, you can create your own libraries using java.
+Load example: 
+```lua
+local library = system.loadLibrary("Library.jar", "com.monsler.class")
+library.method()
+```
+To create libraries you have to use Flow2D SDK, And Luaj (you can took it from a lib folder)
 
 # Other system module functions
 ```lua
