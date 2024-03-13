@@ -7,9 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="luaj-jse-3.0.2" level="project" />
     <orderEntry type="library" name="googlecode.soundlibs.mp3spi" level="project" />
     <orderEntry type="library" name="googlecode.soundlibs.vorbisspi" level="project" />
     <orderEntry type="library" name="googlecode.soundlibs.tritonus.share" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="awaitility" level="project" />
   </component>
 </module>

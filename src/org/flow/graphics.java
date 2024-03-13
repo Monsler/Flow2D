@@ -6,10 +6,7 @@ import org.luaj.vm2.lib.TwoArgFunction;
 import org.luaj.vm2.lib.ZeroArgFunction;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -19,8 +16,7 @@ import java.util.HashMap;
 
 public class graphics extends ZeroArgFunction {
     private static Graphics2D drawer;
-    private static HashMap<String, Image> imageBuffer = new HashMap<>();
-    public int lastPressedKey = 0;
+    public static HashMap<String, Image> imageBuffer = new HashMap<>();
 
     public static void setDrawer(Graphics2D newton){
         drawer = newton;
@@ -83,9 +79,19 @@ public class graphics extends ZeroArgFunction {
                 return valueOf(Runner.pane.cursorY);
             }
         });
-
+        lib.set("mousePressed", new ZeroArgFunction() {
+            @Override
+            public LuaValue call() {
+                if(system.pressedMouse == 1){
+                    return valueOf(true);
+                }else{
+                    return valueOf(false);
+                }
+            }
+        });
         return lib;
     }
+
 
     private static class fillOval extends OneArgFunction {
 
@@ -96,15 +102,6 @@ public class graphics extends ZeroArgFunction {
         }
     }
 
-    /*private static class drawImage extends TwoArgFunction {
-
-        @Override
-        public LuaValue call(LuaValue luaValue, LuaValue luaValue1) {
-            ImageIcon icon = new ImageIcon(luaValue.tojstring());
-            drawer.drawImage(new ImageIcon(icon.getImage().getScaledInstance(luaValue1.get(3).toint(), luaValue1.get(4).toint(), Image.SCALE_DEFAULT)).getImage(), luaValue1.get(1).toint(), luaValue1.get(2).toint(), null, null);
-            return null;
-        }
-    }*/
     private static class drawImage extends TwoArgFunction {
 
         @Override
@@ -118,7 +115,7 @@ public class graphics extends ZeroArgFunction {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                out = image.getScaledInstance(luaValue1.get(3).toint(), luaValue1.get(4).toint(), Image.SCALE_DEFAULT);
+                out = image.getScaledInstance(luaValue1.get(3).toint(), luaValue1.get(4).toint(), Image.SCALE_SMOOTH);
                 imageBuffer.put(luaValue.tojstring(), out);
             }else{
                 if(imageBuffer.get(luaValue.tojstring()).getWidth(null) != luaValue1.get(3).toint() || imageBuffer.get(luaValue.tojstring()).getHeight(null) != luaValue1.get(4).toint()){
@@ -129,13 +126,14 @@ public class graphics extends ZeroArgFunction {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    out = image.getScaledInstance(luaValue1.get(3).toint(), luaValue1.get(4).toint(), Image.SCALE_DEFAULT);
+                    out = image.getScaledInstance(luaValue1.get(3).toint(), luaValue1.get(4).toint(), Image.SCALE_SMOOTH);
                     imageBuffer.put(luaValue.tojstring(), out);
                 }else{
                     out = imageBuffer.get(luaValue.tojstring());
                 }
             }
             drawer.drawImage(out, luaValue1.get(1).toint(), luaValue1.get(2).toint(), null, null);
+
             return null;
         }
     }

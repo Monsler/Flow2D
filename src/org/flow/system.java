@@ -1,20 +1,27 @@
 package org.flow;
 
+import org.awaitility.Awaitility;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
 import org.luaj.vm2.lib.ZeroArgFunction;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.Base64;
 
 public class system extends ZeroArgFunction {
     private int lastPressedKey = 0;
-    private int pressedMouse = 0;
+    public static int pressedMouse = 0;
     @Override
     public LuaValue call() {
         LuaValue lib = tableOf();
@@ -46,8 +53,15 @@ public class system extends ZeroArgFunction {
         lib.set("setIcon", new OneArgFunction() {
             @Override
             public LuaValue call(LuaValue luaValue) {
-                Runner.base.setIconImage(new ImageIcon(luaValue.tojstring()).getImage());
-                return null;
+                byte[] img = Base64.getDecoder().decode(luaValue.tojstring());
+                BufferedImage image;
+                try {
+                     image = ImageIO.read(new ByteArrayInputStream(img));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                Runner.base.setIconImage(image);
+                return valueOf(false);
             }
         });
         lib.set("setResizable", new OneArgFunction() {
@@ -139,16 +153,6 @@ public class system extends ZeroArgFunction {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 pressedMouse = 0;
-            }
-        });
-        lib.set("mousePressed", new ZeroArgFunction() {
-            @Override
-            public LuaValue call() {
-                if(pressedMouse == 1){
-                    return valueOf(true);
-                }else{
-                    return valueOf(false);
-                }
             }
         });
         return lib;

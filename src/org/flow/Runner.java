@@ -66,9 +66,10 @@ public class Runner {
             throw new RuntimeException(e);
         }
         pane.start = 1;
+        pane.dtcount();
     }
 
     public static String getVersion(){
-        return "2024.0305";
+        return "2024.0307";
     }
 }
