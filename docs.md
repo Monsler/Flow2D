@@ -110,6 +110,30 @@ end
 ```
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/1aa8ade0-bea1-4bf5-9d39-178e6eed3f64)
 
+# Displaying Sprite Sheet
+
+![sprite](https://github.com/Monsler/Flow2D/assets/105060825/88ec3586-ddaa-40bf-aaa5-9c3d96312968)
+
+
+Example:
+```lua
+local game = {}
+
+flow.start = function(args)
+    system.hideCursor(true)
+    game.cursor = image.openSpriteSheet('sprite.png', {325, 310, 2, 1})
+    system.setIcon(game.cursor.getSprite(1))
+end
+
+flow.draw = function()
+    graphics.drawImage(game.cursor.getSprite(2), {graphics.getMouseX()-45, graphics.getMouseY()-40, 90, 80})
+end
+```
+Result:
+![image](https://github.com/Monsler/Flow2D/assets/105060825/6741ddc5-d6bc-452f-bd73-0e900f32ece9)
+
+
+
 # Drawing text
 Syntax:
 ```lua
