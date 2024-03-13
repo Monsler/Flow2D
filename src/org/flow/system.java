@@ -1,6 +1,6 @@
 package org.flow;
 
-import org.awaitility.Awaitility;
+import org.luaj.vm2.Lua;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
@@ -16,12 +16,17 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.time.Duration;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.Base64;
 
 public class system extends ZeroArgFunction {
     private int lastPressedKey = 0;
     public static int pressedMouse = 0;
+
     @Override
     public LuaValue call() {
         LuaValue lib = tableOf();
@@ -140,6 +145,48 @@ public class system extends ZeroArgFunction {
                 }
                 Runner.base.setVisible(true);
                 return null;
+            }
+        });
+        lib.set("loadLibrary", new TwoArgFunction() {
+            @Override
+            public LuaValue call(LuaValue luaValue, LuaValue address) {
+                String path = luaValue.tojstring();
+                String addressLib = address.tojstring();
+                URLClassLoader child;
+                try {
+                    child = new URLClassLoader(
+                            new URL[] {new URL("file:"+path)},
+                            this.getClass().getClassLoader()
+                    );
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
+                Class classToLoad;
+                try {
+                    classToLoad = Class.forName(addressLib+".LibraryEntry", true, child);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                Method method;
+                try {
+                    method = classToLoad.getDeclaredMethod("call");
+                } catch (NoSuchMethodException e) {
+                    throw new RuntimeException(e);
+                }
+                Object instance;
+                try {
+                    instance = classToLoad.newInstance();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+                LuaValue result;
+
+                try {
+                    result = (LuaValue) method.invoke(instance);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
+                return result;
             }
         });
         Runner.pane.addMouseListener(new MouseAdapter() {

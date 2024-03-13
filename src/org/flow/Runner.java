@@ -11,6 +11,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.Flow;
 
 public class Runner {
     public static ScriptEngine engine;
@@ -19,6 +20,7 @@ public class Runner {
     public static void runFromFile(String file, String[] args){
         engine = new LuaScriptEngine();
         base = new JFrame();
+        pane.setLayout(null);
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setSize(500, 400);
         base.setLocationRelativeTo(null);
@@ -36,12 +38,14 @@ public class Runner {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        Flow2D.setPanel(pane);
         try {
             engine.eval("image = require('org.flow.image')\naudio = require('org.flow.audio')\ngraphics = require('org.flow.graphics')\nsystem = require('org.flow.system')\nflow = {}\n"+main+"\nflow.start("+value.touserdata()+")");
         } catch (ScriptException e) {
             throw new RuntimeException(e);
         }
         pane.start = 1;
+        pane.dtcount();
     }
 
     public static void runFromString(String code, String[] args){
@@ -57,9 +61,11 @@ public class Runner {
         base.setTitle("Flow2D Simulator");
         base.setVisible(true);
         pane.setBackground(Color.BLACK);
+        pane.setLayout(null);
         base.add(pane);
         String main;
         main = code;
+        Flow2D.setPanel(pane);
         try {
             engine.eval("image = require('org.flow.image')\naudio = require('org.flow.audio')\ngraphics = require('org.flow.graphics')\nsystem = require('org.flow.system')\nflow = {}\n"+main+"\nflow.start("+value.touserdata()+")");
         } catch (ScriptException e) {
@@ -70,6 +76,6 @@ public class Runner {
     }
 
     public static String getVersion(){
-        return "2024.0307";
+        return "2024.0313";
     }
 }
