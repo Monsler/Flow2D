@@ -19,11 +19,11 @@ public class Main {
 # Syntax
 Default startup code of Flow2D project looks like:
 ```lua
-flow.start = function(args)
+flow.start = function(args) -- args is arguments that user passed via terminal
 
 end
 
-flow.draw = function()
+flow.draw = function(dt) -- dt is a delta time
 
 end
 ```
