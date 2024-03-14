@@ -7,17 +7,14 @@ public class FpsCounter extends Thread{
     private long lastFps = 0;
 
     public void run(){
-        Thread t = new Thread(() -> {
-            while (true) {
-                frames++;
-                if(System.nanoTime() > lastFps + 1000000000){
-                    lastFps = System.nanoTime();
-                    currFps = frames;
-                    frames = 0;
-                }
+        while (true) {
+            frames++;
+            if(System.nanoTime() > lastFps + 1000000000){
+                lastFps = System.nanoTime();
+                currFps = frames;
+                frames = 0;
             }
-        });
-        t.start();
+        }
 
     }
     public double fps(){

@@ -1,6 +1,5 @@
 package org.flow;
 
-import org.luaj.vm2.Lua;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
@@ -90,7 +89,7 @@ public class system extends ZeroArgFunction {
                 return null;
             }
         });
-        Runner.base.addKeyListener(new KeyAdapter() {
+        Runner.pane.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
@@ -152,41 +151,23 @@ public class system extends ZeroArgFunction {
             public LuaValue call(LuaValue luaValue, LuaValue address) {
                 String path = luaValue.tojstring();
                 String addressLib = address.tojstring();
-                URLClassLoader child;
-                try {
-                    child = new URLClassLoader(
-                            new URL[] {new URL("file:"+path)},
-                            this.getClass().getClassLoader()
-                    );
-                } catch (MalformedURLException e) {
-                    throw new RuntimeException(e);
-                }
-                Class classToLoad;
-                try {
-                    classToLoad = Class.forName(addressLib+".LibraryEntry", true, child);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-                Method method;
-                try {
-                    method = classToLoad.getDeclaredMethod("call");
-                } catch (NoSuchMethodException e) {
-                    throw new RuntimeException(e);
-                }
-                Object instance;
-                try {
-                    instance = classToLoad.newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-                LuaValue result;
 
                 try {
-                    result = (LuaValue) method.invoke(instance);
-                } catch (IllegalAccessException | InvocationTargetException e) {
+                    URLClassLoader child = new URLClassLoader(
+                            new URL[] { new URL("file:" + path) },
+                            this.getClass().getClassLoader()
+                    );
+
+                    Class<?> classToLoad = Class.forName(addressLib + ".LibraryEntry", true, child);
+                    Method method = classToLoad.getDeclaredMethod("call");
+                    Object instance = classToLoad.newInstance();
+
+                    LuaValue result = (LuaValue) method.invoke(instance);
+
+                    return result;
+                } catch (MalformedURLException | ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     throw new RuntimeException(e);
                 }
-                return result;
             }
         });
         Runner.pane.addMouseListener(new MouseAdapter() {
