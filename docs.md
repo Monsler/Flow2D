@@ -71,6 +71,7 @@ end
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/5769d870-cf09-4c26-a692-d5b3bac171e3)
 
 > Rounded rectangle
+
 Syntax:
 ```lua
 graphics.fillRoundedRect({x, y, width, height, roundValue})
