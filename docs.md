@@ -111,6 +111,7 @@ end
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/895e62d8-a649-46b8-8417-ba44ba1a00f1)
 
 > Rotating shape
+
 Syntax:
 ```lua
 graphics.rotate(degrees)
