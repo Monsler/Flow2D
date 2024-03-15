@@ -3,6 +3,7 @@ package org.flow;
 import javax.script.ScriptException;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class Pane extends JPanel {
     private Color bgcolor;
@@ -10,6 +11,7 @@ public class Pane extends JPanel {
     public int fps = 0;
     public float dt = 0;
     private float lastTime;
+    public static AffineTransform transform;
     long last_time = System.nanoTime();
     FpsCounter counter;
     public int cursorX, cursorY;
@@ -26,11 +28,11 @@ public class Pane extends JPanel {
             long lastlong = System.nanoTime();
             float delta = 0;
             long timer = System.currentTimeMillis();
-            final double physicstick = 1000000000 / 140;
+            final double physicist = (double) 1000000000 / 140;
 
             while (true) {
                 long now = System.nanoTime();
-                delta += (now - lastlong) / physicstick;
+                delta += (float) ((now - lastlong) / physicist);
                 long lastrender = System.nanoTime();
                 lastlong = now;
                 while (delta >= 1) {
@@ -52,6 +54,7 @@ public class Pane extends JPanel {
 
     protected void paintComponent(Graphics g){
         Graphics2D ext = (Graphics2D) g.create();
+        transform = ext.getTransform();
         graphics.setDrawer(ext);
         long currentTime = System.nanoTime();
         ext.setRenderingHint(

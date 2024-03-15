@@ -117,13 +117,13 @@ public class system extends ZeroArgFunction {
         lib.set("hideCursor", new OneArgFunction() {
             @Override
             public LuaValue call(LuaValue luaValue) {
-                boolean ifs = luaValue.toboolean();
-                if (ifs) {
-                    byte[]imageByte=new byte[0];
-                    Image cursorImage=Toolkit.getDefaultToolkit().createImage(imageByte);
-                    Cursor empty = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "Empty");
-                    Runner.pane.setCursor(empty);
-                }else{
+                boolean isValueTrue = luaValue.toboolean();
+                if (isValueTrue) {
+                    byte[] imageBytes = new byte[0];
+                    Image cursorImage = Toolkit.getDefaultToolkit().createImage(imageBytes);
+                    Cursor emptyCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "Empty");
+                    Runner.pane.setCursor(emptyCursor);
+                } else {
                     Runner.pane.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 }
                 return null;
@@ -151,20 +151,15 @@ public class system extends ZeroArgFunction {
             public LuaValue call(LuaValue luaValue, LuaValue address) {
                 String path = luaValue.tojstring();
                 String addressLib = address.tojstring();
-
                 try {
                     URLClassLoader child = new URLClassLoader(
                             new URL[] { new URL("file:" + path) },
                             this.getClass().getClassLoader()
                     );
-
                     Class<?> classToLoad = Class.forName(addressLib + ".LibraryEntry", true, child);
                     Method method = classToLoad.getDeclaredMethod("call");
-                    Object instance = classToLoad.newInstance();
-
-                    LuaValue result = (LuaValue) method.invoke(instance);
-
-                    return result;
+                    Object instance = classToLoad.getDeclaredConstructor().newInstance();
+                    return (LuaValue) method.invoke(instance);
                 } catch (MalformedURLException | ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     throw new RuntimeException(e);
                 }

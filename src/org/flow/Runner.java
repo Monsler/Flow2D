@@ -2,9 +2,7 @@ package org.flow;
 
 
 import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.ast.Str;
 import org.luaj.vm2.script.LuaScriptEngine;
-
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import javax.swing.*;
@@ -18,13 +16,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.concurrent.Flow;
+
 
 public class Runner {
     public static ScriptEngine engine;
     public static JFrame base;
     static Pane pane = new Pane();
-    private final static String deps = "image = require('org.flow.image')\naudio = require('org.flow.audio')\ngraphics = require('org.flow.graphics')\nsystem = require('org.flow.system')\nflow = {}\n";
+    private final static String des = "image = require('org.flow.image')\naudio = require('org.flow.audio')\ngraphics = require('org.flow.graphics')\nsystem = require('org.flow.system')\nflow = {}\n";
     public static void runFromFile(String file, String[] args){
         engine = new LuaScriptEngine();
         base = new JFrame();
@@ -49,7 +47,7 @@ public class Runner {
         Flow2D.setPanel(pane);
         Flow2D.setEngine(engine);
         try {
-            engine.eval(deps+main+"\nflow.start("+value.touserdata()+")");
+            engine.eval(des +main+"\nflow.start("+value.touserdata()+")");
         } catch (ScriptException e) {
             throw new RuntimeException(e);
         }
@@ -96,7 +94,7 @@ public class Runner {
         Flow2D.setPanel(pane);
         Flow2D.setEngine(engine);
         try {
-            engine.eval(deps+bld+"\nflow.start("+value.touserdata()+")");
+            engine.eval(des +bld+"\nflow.start("+value.touserdata()+")");
         } catch (ScriptException e) {
             throw new RuntimeException(e);
         }
@@ -130,7 +128,7 @@ public class Runner {
         main = code;
         Flow2D.setPanel(pane);
         try {
-            engine.eval(deps+main+"\nflow.start("+value.touserdata()+")");
+            engine.eval(des +main+"\nflow.start("+value.touserdata()+")");
         } catch (ScriptException e) {
             throw new RuntimeException(e);
         }
@@ -147,6 +145,6 @@ public class Runner {
     }
 
     public static String getVersion(){
-        return "2024.0314";
+        return "2024.0315";
     }
 }

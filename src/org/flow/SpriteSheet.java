@@ -2,8 +2,6 @@ package org.flow;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-
 public class SpriteSheet {
     public BufferedImage sprite;
     public BufferedImage[] sprites;

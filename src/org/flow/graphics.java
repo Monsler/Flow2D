@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
 
+import static org.flow.Pane.transform;
+
 public class graphics extends ZeroArgFunction {
     private static Graphics2D drawer;
     public static HashMap<String, Image> imageBuffer = new HashMap<>();
@@ -89,7 +91,31 @@ public class graphics extends ZeroArgFunction {
                 }
             }
         });
+        lib.set("fillRoundedRect", new fillRoundedRect());
+        lib.set("rotate", new rotate());
         return lib;
+    }
+
+    private static class rotate extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            if(luaValue.toint() != 0){
+                drawer.rotate(Math.toRadians(luaValue.toint()));
+            }else{
+                drawer.setTransform(transform);
+            }
+            return null;
+        }
+    }
+
+    private static class fillRoundedRect extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            drawer.fillRoundRect(luaValue.get(1).toint(), luaValue.get(2).toint(), luaValue.get(3).toint(), luaValue.get(4).toint(), luaValue.get(5).toint(), luaValue.get(5).toint());
+            return null;
+        }
     }
 
 
