@@ -70,6 +70,27 @@ end
 ```
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/5769d870-cf09-4c26-a692-d5b3bac171e3)
 
+> Rounded rectangle
+Syntax:
+```lua
+graphics.fillRoundedRect({x, y, width, height, roundValue})
+```
+Example:
+```lua
+local game = {}
+
+flow.start = function(args)
+
+end
+
+flow.draw = function()
+    graphics.fillRoundedRect({10, 10, graphics.width()-20, 100, 15})
+end
+```
+Result:
+![image](https://github.com/Monsler/Flow2D/assets/105060825/3a0b007b-8a1a-433d-886f-7ef62650ef6d)
+
+
 > Setup a color for each shape
 
 Syntax:
@@ -88,6 +109,28 @@ flow.draw = function()
 end
 ```
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/895e62d8-a649-46b8-8417-ba44ba1a00f1)
+
+> Rotating shape
+Syntax:
+```lua
+graphics.rotate(degrees)
+```
+Example:
+```lua
+local game = {}
+
+flow.start = function(args)
+
+end
+
+flow.draw = function()
+    graphics.rotate(20)
+    graphics.fillRoundedRect({10, 10, graphics.width()-20, 100, 15})
+end
+```
+Result:
+![image](https://github.com/Monsler/Flow2D/assets/105060825/042b506b-1854-4217-94f1-51b60a33f5bc)
+
 
 # Displaying image
 Syntax:
