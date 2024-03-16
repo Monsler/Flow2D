@@ -93,7 +93,17 @@ public class graphics extends ZeroArgFunction {
         });
         lib.set("fillRoundedRect", new fillRoundedRect());
         lib.set("rotate", new rotate());
+        lib.set("setGradient", new setGradientPaint());
         return lib;
+    }
+
+    private static class setGradientPaint extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            drawer.setPaint(new GradientPaint(luaValue.get(1).toint(), luaValue.get(2).toint(), Color.decode(luaValue.get(3).tojstring()), luaValue.get(4).toint(), luaValue.get(5).toint(), Color.decode(luaValue.get(6).tojstring())));
+            return null;
+        }
     }
 
     private static class rotate extends OneArgFunction {
@@ -203,6 +213,7 @@ public class graphics extends ZeroArgFunction {
 
         @Override
         public LuaValue call(LuaValue luaValue) {
+            drawer.setPaint(null);
             drawer.setColor(Color.decode(luaValue.tojstring()));
             return null;
         }

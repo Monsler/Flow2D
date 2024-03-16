@@ -12,7 +12,6 @@ public class Pane extends JPanel {
     public float dt = 0;
     private float lastTime;
     public static AffineTransform transform;
-    long last_time = System.nanoTime();
     FpsCounter counter;
     public int cursorX, cursorY;
     public Pane(){
@@ -27,26 +26,22 @@ public class Pane extends JPanel {
         new Thread() { public void run() {
             long lastlong = System.nanoTime();
             float delta = 0;
-            long timer = System.currentTimeMillis();
             final double physicist = (double) 1000000000 / 140;
 
             while (true) {
                 long now = System.nanoTime();
                 delta += (float) ((now - lastlong) / physicist);
-                long lastrender = System.nanoTime();
+                long lastrender;
                 lastlong = now;
                 while (delta >= 1) {
                     delta--;
-                    //physics code 8% CPU, is that normal?
                 }
                 lastrender = now;
 
                 while (now - lastrender < (1000000000 / 60)) {
                     try {
                         Thread.sleep(1);
-                        //Without sleeping there is a 100% CPU usage CRAZY!
-                    } catch (InterruptedException ie) {
-                    }
+                    } catch (InterruptedException ignored) {}
                     now = System.nanoTime();
                 }
             }}}.start();
