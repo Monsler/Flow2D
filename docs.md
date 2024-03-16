@@ -133,6 +133,28 @@ end
 Result:
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/042b506b-1854-4217-94f1-51b60a33f5bc)
 
+> Gradient fill
+
+Syntax:
+```lua
+graphics.setGradient(startX, startY, color1, endX, endY, color2)
+```
+
+Example:
+```lua
+flow.start = function(args)
+    system.setWindowTitle("Gradient")
+end
+
+flow.draw = function(dt)
+    graphics.setGradient({0, 100, "#FF0000", graphics.width()-20, 100, "#0000FF"})
+    graphics.fillRoundedRect({10, 10, graphics.width()-20, 100, 10})
+end
+```
+
+Result:
+![image](https://github.com/Monsler/Flow2D/assets/105060825/fa6bd170-41aa-430f-9720-2998e7aaac68)
+
 
 # Displaying image
 Syntax:
