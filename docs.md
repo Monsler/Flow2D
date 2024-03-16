@@ -285,9 +285,9 @@ end
 ```
 
 Methods:
-tcp.connectTo(ip, port) - connects you to server so you can use the methods below
-server.write(text) - sends a text to server
-server.read() reads data of server's answer
+tcp.connectTo(ip, port) - connects you to server so you can use the methods below<br>
+server.write(text) - sends a text to server<br>
+server.read() reads data of server's answer<br>
 server.close() - closes the socket
 
 # Getting and Setting window params
