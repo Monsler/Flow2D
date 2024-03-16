@@ -266,6 +266,29 @@ Methods:
 ```lua
 physics.collides({x, y, width, height}, {x, y, width, height})
 ```
+# TCP
+Example:
+```lua
+tcp = require("org.flow.tcp")
+flow.start = function(args)
+    system.setWindowTitle("TCP Test")
+    local port = 0 -- Use your port and ip here
+    game.server = tcp.connectTo("ip", port)
+    game.server.write("{\"answer\": \"My message\"}")
+    print(game.server.read())
+    game.server.close()
+end
+
+flow.draw = function(dt)
+    -- Empty because i tired of it lol
+end
+```
+
+Methods:
+tcp.connectTo(ip, port) - connects you to server so you can use the methods below
+server.write(text) - sends a text to server
+server.read() reads data of server's answer
+server.close() - closes the socket
 
 # Getting and Setting window params
 ```lua
