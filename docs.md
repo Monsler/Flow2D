@@ -1,4 +1,4 @@
-# Setup project
+# Project setup
 Add library to your java project. Now you can use Runner class. Methods:
 ```java
 Runner.runFromString(code, args)
