@@ -3,6 +3,7 @@ Add library to your java project. Now you can use Runner class. Methods:
 ```java
 Runner.runFromString(code, args)
 Runner.runFromFile(filename, args)
+Runner.runFromResources(Current.class, filename, args)
 ```
 Example:
 ```java
