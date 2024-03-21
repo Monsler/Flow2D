@@ -89,7 +89,6 @@ flow.draw = function()
     graphics.fillRoundedRect({10, 10, graphics.width()-20, 100, 15})
 end
 ```
-Result:
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/3a0b007b-8a1a-433d-886f-7ef62650ef6d)
 
 
@@ -131,7 +130,6 @@ flow.draw = function()
     graphics.fillRoundedRect({10, 10, graphics.width()-20, 100, 15})
 end
 ```
-Result:
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/042b506b-1854-4217-94f1-51b60a33f5bc)
 
 > Gradient fill
@@ -152,8 +150,6 @@ flow.draw = function(dt)
     graphics.fillRoundedRect({10, 10, graphics.width()-20, 100, 10})
 end
 ```
-
-Result:
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/fa6bd170-41aa-430f-9720-2998e7aaac68)
 
 
