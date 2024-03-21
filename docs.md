@@ -167,7 +167,7 @@ Example:
 local img = 0
 flow.start = function(args)
     -- Function that will be invoked on start
-    img = image.open('table.png')
+    img = image.read('table.png')
     graphics.setBackground('#FFFFFF')
 end
 
@@ -187,7 +187,7 @@ local game = {}
 
 flow.start = function(args)
     system.hideCursor(true)
-    game.cursor = image.openSpriteSheet('sprite.png', {325, 310, 2, 1})
+    game.cursor = image.readSpriteSheet('sprite.png', {325, 310, 2, 1})
     system.setIcon(game.cursor.getSprite(1))
 end
 
