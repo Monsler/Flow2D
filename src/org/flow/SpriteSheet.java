@@ -1,5 +1,4 @@
 package org.flow;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 public class SpriteSheet {

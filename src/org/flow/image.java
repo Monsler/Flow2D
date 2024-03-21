@@ -17,7 +17,7 @@ public class image extends ZeroArgFunction {
     @Override
     public LuaValue call() {
         LuaValue lib = tableOf();
-        lib.set("open", new OneArgFunction() {
+        lib.set("read", new OneArgFunction() {
             @Override
             public LuaValue call(LuaValue luaValue) {
                 File fi = new File(luaValue.tojstring());
@@ -37,7 +37,7 @@ public class image extends ZeroArgFunction {
                 return tool;
             }
         });
-        lib.set("openSpriteSheet", new TwoArgFunction() {
+        lib.set("readSpriteSheet", new TwoArgFunction() {
             @Override
             public LuaValue call(LuaValue luaValue, LuaValue pref) {
                 BufferedImage ss;

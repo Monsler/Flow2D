@@ -3,6 +3,8 @@ package org.flow;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.script.LuaScriptEngine;
+
+import javax.imageio.ImageIO;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import javax.swing.*;
@@ -16,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Runner {
@@ -38,6 +41,11 @@ public class Runner {
         base.setVisible(true);
         pane.setBackground(Color.BLACK);
         base.add(pane);
+        try {
+            base.setIconImage(ImageIO.read(Objects.requireNonNull(Runner.class.getResource("flow2d-logo.png"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String main;
         try {
             main = Files.readString(Path.of(file));
@@ -91,6 +99,11 @@ public class Runner {
         base.setVisible(true);
         pane.setBackground(Color.BLACK);
         base.add(pane);
+        try {
+            base.setIconImage(ImageIO.read(Objects.requireNonNull(Runner.class.getResource("flow2d-logo.png"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         Flow2D.setPanel(pane);
         Flow2D.setEngine(engine);
         try {
@@ -124,6 +137,11 @@ public class Runner {
         pane.setBackground(Color.BLACK);
         pane.setLayout(null);
         base.add(pane);
+        try {
+            base.setIconImage(ImageIO.read(Objects.requireNonNull(Runner.class.getResource("flow2d-logo.png"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String main;
         main = code;
         Flow2D.setPanel(pane);
@@ -145,6 +163,6 @@ public class Runner {
     }
 
     public static String getVersion(){
-        return "2024.0316";
+        return "2024.0322";
     }
 }
