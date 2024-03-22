@@ -195,6 +195,92 @@ end
 Result:
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/6741ddc5-d6bc-452f-bd73-0e900f32ece9)
 
+# Color module
+Usage:
+```lua
+color = require('org.flow.color')
+```
+Currently available colors:<br>
+White<br>
+Red<br>
+Bloody<br>
+Green<br>
+Blue<br>
+OceanBlue<br>
+BabyBlue<br>
+CoffeeBlack<br>
+SkyBlue<br>
+Yellow<br>
+Leafy<br>
+SeaGreen<br>
+DarkViolet<br>
+Denim<br>
+ForestGreen<br>
+Iris<br>
+Salmon<br>
+GoGreen<br>
+LightSlateBlue<br>
+LimeGreen<br>
+NeonBlue<br>
+RoyalBlue<br>
+RussianViolet<br>
+Orange<br>
+LaserLemon<br>
+AcidGreen<br>
+Aqua<br>
+JungleGreen<br>
+Cinnabar<br>
+Corn<br>
+DarkOrchid<br>
+Black<br>
+Gray<br>
+DarkGray<br>
+TeaGreen<br>
+Vanilla<br>
+Wisteria<br>
+Wine<br>
+Smoke<br>
+Ultramarine<br>
+Tan<br>
+SmokyBlack<br>
+ShamrockGreen<br>
+Rose<br>
+Plum<br>
+PaleGreen<br>
+PacificBlue<br>
+Mint<br>
+MediumPurple<br>
+CandyAppleRed<br>
+MayaBlue<br>
+Mango<br>
+MangoTango<br>
+Mantis<br>
+Mahogany<br>
+Mandarin<br>
+Light<br>
+Indigo<br>
+IndianRed<br>
+ImperialRed<br>
+Iceberg<br>
+Emerald<br>
+HunterGreen<br>
+HonoluluBlue<br>
+Gunmetal<br>
+Ginger<br>
+
+Example:
+```lua
+local color = require('org.flow.color')
+
+flow.start = function(args)
+    system.setWindowTitle('Colors!')
+end
+
+flow.draw = function(dt)
+    graphics.setBackground(color.Wine)
+end
+```
+<img src="https://github.com/Monsler/Flow2D/assets/105060825/13eff38f-cca7-4f42-8354-46e8a3d3cede">
 
 
 # Drawing text
