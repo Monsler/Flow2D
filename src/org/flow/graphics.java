@@ -1,6 +1,7 @@
 package org.flow;
 
 import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.ast.Str;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
 import org.luaj.vm2.lib.ZeroArgFunction;
@@ -11,14 +12,17 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.flow.Pane.transform;
 
 public class graphics extends ZeroArgFunction {
     private static Graphics2D drawer;
     public static HashMap<String, Image> imageBuffer = new HashMap<>();
+    private static String LastColor = "";
 
     public static void setDrawer(Graphics2D newton){
         drawer = newton;
@@ -36,7 +40,11 @@ public class graphics extends ZeroArgFunction {
         lib.set("setBackground", new OneArgFunction() {
             @Override
             public LuaValue call(LuaValue luaValue) {
-                Runner.pane.setColor(Color.decode(luaValue.tojstring()));
+                drawer.setColor(Color.decode(luaValue.tojstring()));
+                drawer.fillRect(0, 0, Runner.pane.getWidth(), Runner.pane.getHeight());
+                if (!LastColor.isEmpty()) {
+                    drawer.setColor(Color.decode(LastColor));
+                }
                 return null;
             }
         });
@@ -94,7 +102,78 @@ public class graphics extends ZeroArgFunction {
         lib.set("fillRoundedRect", new fillRoundedRect());
         lib.set("rotate", new rotate());
         lib.set("setGradient", new setGradientPaint());
+        lib.set("drawLine", new drawLine());
+        lib.set("drawPolygon", new drawPolygon());
+        lib.set("drawRectStroke", new drawRectStroke());
+        lib.set("drawOvalStroke", new drawRoundStroke());
+        lib.set("drawPolygonStroke", new drawPolygonStroke());
         return lib;
+    }
+
+    private static class drawPolygonStroke extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < luaValue.length(); i++) {
+                list.add(luaValue.get(i + 1).toint());
+            }
+
+            Polygon polygon = new Polygon();
+            for (int i = 0; i < list.size() - 1; i++) {
+                polygon.addPoint(list.get(i), list.get(i + 1));
+            }
+
+            drawer.drawPolygon(polygon);
+            return null;
+        }
+    }
+
+    private static class drawRoundStroke extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            drawer.drawOval(luaValue.get(1).toint(), luaValue.get(2).toint(), luaValue.get(3).toint(), luaValue.get(4).toint());
+            return null;
+        }
+    }
+
+    private static class drawRectStroke extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            drawer.drawRect(luaValue.get(1).toint(), luaValue.get(2).toint(), luaValue.get(3).toint(), luaValue.get(4).toint());
+            return null;
+        }
+    }
+
+    private static class drawPolygon extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < luaValue.length(); i++) {
+                list.add(luaValue.get(i + 1).toint());
+            }
+
+            Polygon polygon = new Polygon();
+            for (int i = 0; i < list.size() - 1; i++) {
+                polygon.addPoint(list.get(i), list.get(i + 1));
+            }
+
+            drawer.fillPolygon(polygon);
+            return null;
+        }
+
+    }
+
+    private static class drawLine extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            drawer.drawLine(luaValue.get(1).toint(), luaValue.get(2).toint(), luaValue.get(3).toint(), luaValue.get(4).toint());
+            return null;
+        }
     }
 
     private static class setGradientPaint extends OneArgFunction {
@@ -213,6 +292,7 @@ public class graphics extends ZeroArgFunction {
 
         @Override
         public LuaValue call(LuaValue luaValue) {
+            graphics.LastColor = luaValue.tojstring();
             drawer.setPaint(null);
             drawer.setColor(Color.decode(luaValue.tojstring()));
             return null;

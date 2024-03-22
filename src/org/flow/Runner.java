@@ -1,6 +1,5 @@
 package org.flow;
 
-
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.script.LuaScriptEngine;
 
@@ -9,10 +8,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -40,6 +36,7 @@ public class Runner {
         base.setTitle("Flow2D Simulator");
         base.setVisible(true);
         pane.setBackground(Color.BLACK);
+        base.setResizable(false);
         base.add(pane);
         try {
             base.setIconImage(ImageIO.read(Objects.requireNonNull(Runner.class.getResource("flow2d-logo.png"))));
@@ -90,6 +87,7 @@ public class Runner {
         pane.setLayout(null);
         base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setSize(500, 400);
+        base.setResizable(false);
         base.setLocationRelativeTo(null);
         LuaValue value = LuaValue.tableOf();
         for(String arg: args){
@@ -135,6 +133,7 @@ public class Runner {
         base.setTitle("Flow2D Simulator");
         base.setVisible(true);
         pane.setBackground(Color.BLACK);
+        base.setResizable(false);
         pane.setLayout(null);
         base.add(pane);
         try {
