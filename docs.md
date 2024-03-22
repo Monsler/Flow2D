@@ -307,14 +307,6 @@ Syntax:
 ```lua
 graphics.loadFont(filename)
 ```
-# Mouse info
-Methods:
-```lua
-graphics.mousePressed() -- Returns true or false of mouse pressed state
-graphics.getMouseX()
-graphics.getMouseY()
-```
-
 
 Example:
 ```lua
@@ -331,6 +323,15 @@ flow.draw = function()
 end
 ```
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/7668fb27-e7ba-4975-935f-41491ed9933d)
+
+# Mouse info
+Methods:
+```lua
+graphics.mousePressed() -- Returns true or false of mouse pressed state
+graphics.getMouseX()
+graphics.getMouseY()
+```
+
 
 # Audio
 Example:
