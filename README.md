@@ -23,18 +23,18 @@ result:<br>
 </div>
 
 # Drawing images
-Now, lets draw image. for example, i'll take this one called 'table.png'.
+Now, lets draw an image. for example, i'll take this one called 'table.png'.
 <img src="https://github.com/Monsler/Flow2D/assets/105060825/621e002a-9de1-4088-ba9d-d54fd5100df3" width="40%">
 <br>
 ```lua
 local img
 flow.start = function(args)
-    graphics.setBackground("#FFFFFF")
     -- Function that will be invoked on start
-    img = image.open('table.png')
+    img = image.read('table.png')
 end
 
 flow.draw = function()
+    graphics.setBackground("#FFFFFF")
     graphics.drawImage(img.getImage(), {50, 50, 100, 100})
 end
 ```
