@@ -81,6 +81,13 @@ public class color extends ZeroArgFunction {
                 return valueOf(hex);
             }
         });
+        lib.set("RGBA", new OneArgFunction() {
+            @Override
+            public LuaValue call(LuaValue luaValue) {
+                String hex = String.format("#%02x%02x%02x%02x", luaValue.get(1).toint(), luaValue.get(2).toint(), luaValue.get(3).toint(), luaValue.get(4).toint());
+                return valueOf(hex);
+            }
+        });
         return lib;
     }
 }

@@ -32,14 +32,18 @@ public class system extends ZeroArgFunction {
         lib.set("wait", new OneArgFunction() {
             @Override
             public LuaValue call(LuaValue luaValue) {
-                try {
-                    Thread.sleep(luaValue.toint());
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                int sleepTime = luaValue.toint();
+                SwingUtilities.invokeLater(() -> {
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 return null;
             }
         });
+
         lib.set("setWindowTitle", new OneArgFunction() {
             @Override
             public LuaValue call(LuaValue luaValue) {

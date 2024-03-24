@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
@@ -23,6 +24,8 @@ public class graphics extends ZeroArgFunction {
     private static Graphics2D drawer;
     public static HashMap<String, Image> imageBuffer = new HashMap<>();
     private static String LastColor = "";
+    private static int opacity = 255;
+    private DecimalFormat df = new DecimalFormat("0.##");
 
     public static void setDrawer(Graphics2D newton){
         drawer = newton;
@@ -58,7 +61,7 @@ public class graphics extends ZeroArgFunction {
         lib.set("fps", new ZeroArgFunction() {
             @Override
             public LuaValue call() {
-                return valueOf(Runner.pane.fps);
+                return valueOf(df.format(Runner.pane.fps));
             }
         });
         lib.set("loadFont", new OneArgFunction() {
@@ -104,10 +107,52 @@ public class graphics extends ZeroArgFunction {
         lib.set("setGradient", new setGradientPaint());
         lib.set("drawLine", new drawLine());
         lib.set("drawPolygon", new drawPolygon());
-        lib.set("drawRectStroke", new drawRectStroke());
-        lib.set("drawOvalStroke", new drawRoundStroke());
-        lib.set("drawPolygonStroke", new drawPolygonStroke());
+        lib.set("fillRectStroke", new drawRectStroke());
+        lib.set("fillOvalStroke", new drawRoundStroke());
+        lib.set("fillPolygonStroke", new drawPolygonStroke());
+        lib.set("fillRoundedRectStroke", new fillRoundedRectStroke());
+        lib.set("crop", new clip());
+        lib.set("setOpacity", new setOpacity());
+        lib.set("copyArea", new copyArea());
         return lib;
+    }
+
+    private static class copyArea extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            drawer.copyArea(luaValue.get(1).toint(), luaValue.get(2).toint(), luaValue.get(3).toint(), luaValue.get(4).toint(), luaValue.get(5).toint(), luaValue.get(6).toint());
+            return null;
+        }
+    }
+
+    private static class setOpacity extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            if (opacity != luaValue.toint()) {
+                opacity = luaValue.toint();
+            }
+            return null;
+        }
+    }
+
+    private static class clip extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            drawer.clip(new Rectangle(luaValue.get(1).toint(), luaValue.get(2).toint(), luaValue.get(3).toint(), luaValue.get(4).toint()));
+            return null;
+        }
+    }
+
+    private static class fillRoundedRectStroke extends OneArgFunction {
+
+        @Override
+        public LuaValue call(LuaValue luaValue) {
+            drawer.drawRoundRect(luaValue.get(1).toint(), luaValue.get(2).toint(), luaValue.get(3).toint(), luaValue.get(4).toint(), luaValue.get(5).toint(), luaValue.get(5).toint());
+            return null;
+        }
     }
 
     private static class drawPolygonStroke extends OneArgFunction {
@@ -294,7 +339,9 @@ public class graphics extends ZeroArgFunction {
         public LuaValue call(LuaValue luaValue) {
             graphics.LastColor = luaValue.tojstring();
             drawer.setPaint(null);
-            drawer.setColor(Color.decode(luaValue.tojstring()));
+            Color set = Color.decode(luaValue.tojstring());
+            set = new Color(set.getRed(), set.getGreen(), set.getBlue(), opacity);
+            drawer.setColor(set);
             return null;
         }
     }
