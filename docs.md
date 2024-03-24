@@ -132,6 +132,27 @@ end
 ```
 ![image](https://github.com/Monsler/Flow2D/assets/105060825/042b506b-1854-4217-94f1-51b60a33f5bc)
 
+> Global opacity
+
+Syntax:
+```lua
+graphics.setOpacity(0-255)
+```
+
+> Crop an area
+
+Syntax:
+```lua
+graphics.crop({x, y, width, height})
+```
+
+> Copy an area
+
+Syntax:
+```lua
+graphics.copyArea({x, y, width, height, x2, y2})
+```
+
 > Gradient fill
 
 Syntax:
