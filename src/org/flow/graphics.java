@@ -102,6 +102,7 @@ public class graphics extends ZeroArgFunction {
                 }
             }
         });
+
         lib.set("fillRoundedRect", new fillRoundedRect());
         lib.set("rotate", new rotate());
         lib.set("setGradient", new setGradientPaint());
