@@ -130,9 +130,8 @@ public class graphics extends ZeroArgFunction {
 
         @Override
         public LuaValue call(LuaValue luaValue) {
-            if (opacity != luaValue.toint()) {
-                opacity = luaValue.toint();
-            }
+            opacity = luaValue.toint();
+            drawer.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity/255f));
             return null;
         }
     }
@@ -340,7 +339,6 @@ public class graphics extends ZeroArgFunction {
             graphics.LastColor = luaValue.tojstring();
             drawer.setPaint(null);
             Color set = Color.decode(luaValue.tojstring());
-            set = new Color(set.getRed(), set.getGreen(), set.getBlue(), opacity);
             drawer.setColor(set);
             return null;
         }

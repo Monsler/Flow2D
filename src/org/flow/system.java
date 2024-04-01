@@ -138,13 +138,19 @@ public class system extends ZeroArgFunction {
             public LuaValue call(LuaValue luaValue) {
                 boolean ifs = luaValue.toboolean();
                 Runner.base.setVisible(false);
+                Dimension dim = new Dimension(0, 0);
                 Runner.base.dispose();
                 if (ifs) {
                     Runner.base.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    dim = Runner.base.getSize();
+                    Runner.base.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+                    Runner.base.setAlwaysOnTop(true);
                     Runner.base.setUndecorated(true);
                 }else {
                     Runner.base.setExtendedState(JFrame.NORMAL);
                     Runner.base.setUndecorated(false);
+                    Runner.base.setSize(dim);
+                    Runner.base.setAlwaysOnTop(false);
                 }
                 Runner.base.setVisible(true);
                 return null;
@@ -167,6 +173,20 @@ public class system extends ZeroArgFunction {
                 } catch (MalformedURLException | ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     throw new RuntimeException(e);
                 }
+            }
+        });
+        lib.set("getProperty", new OneArgFunction() {
+            @Override
+            public LuaValue call(LuaValue luaValue) {
+                return valueOf(System.getProperty(luaValue.tojstring()));
+            }
+        });
+
+        lib.set("setProperty", new TwoArgFunction() {
+            @Override
+            public LuaValue call(LuaValue luaValue, LuaValue luaValue1) {
+                System.setProperty(luaValue.tojstring(), luaValue1.tojstring());
+                return null;
             }
         });
         Runner.pane.addMouseListener(new MouseAdapter() {
