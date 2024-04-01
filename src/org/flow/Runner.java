@@ -68,7 +68,7 @@ public class Runner {
     }
 
     public static void runFromResources(Class<?> cls, String filename, String[] args){
-        URL url = cls.getClassLoader().getResource("main.lua");
+        URL url = cls.getClassLoader().getResource(filename);
         assert url != null;
         InputStream inputStream;
         try {
@@ -160,6 +160,7 @@ public class Runner {
         pane.start = 1;
         pane.dtcount();
     }
+
 
     public static String getVersion(){
         return "2024.0401";
