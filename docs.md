@@ -405,6 +405,8 @@ system.setResizable([true or false])
 system.centerFrame() -- Centers position of window to center of screen
 system.setWindowSize(width, height) -- Sets the size of window
 system.setIcon(filename) -- Sets icon of window
+system.getProperty(key) -- returns Java call of System.getProperty()
+system.setProperty(key, value) -- sets the value to key. for example: system.setProperty("tmp_dir", "./tmp/")
 ```
 # Importing a plugin
 There in Flow2D, you can create your own libraries using java.
