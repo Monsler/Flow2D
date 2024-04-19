@@ -420,7 +420,7 @@ To create libraries you have to use Flow2D SDK, And Luaj (you can take it out fr
 # Other system module functions
 ```lua
 system.wait(millis) -- Async wait function
-system.getPressedKey() -- Returns number of pressed key.
+system.getPressedKey() -- Returns the number of pressed key.
 system.log(text) -- Log information to output
 system.engineVersion() -- Returns the version of engine
 ```
