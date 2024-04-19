@@ -1,5 +1,7 @@
 package org.flow;
 
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
+import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
@@ -18,16 +20,19 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Base64;
+import java.util.Objects;
 
 public class system extends ZeroArgFunction {
-    private int lastPressedKey = 0;
+    public static int lastPressedKey = 0;
     public static int pressedMouse = 0;
 
     @Override
     public LuaValue call() {
+        Keyboard.start();
         LuaValue lib = tableOf();
         lib.set("wait", new OneArgFunction() {
             @Override
@@ -58,6 +63,13 @@ public class system extends ZeroArgFunction {
                 return null;
             }
         });
+        lib.set("pack", new ZeroArgFunction() {
+            @Override
+            public LuaValue call() {
+                Runner.base.pack();
+                return null;
+            }
+        });
         lib.set("setIcon", new OneArgFunction() {
             @Override
             public LuaValue call(LuaValue luaValue) {
@@ -82,7 +94,7 @@ public class system extends ZeroArgFunction {
         lib.set("centerFrame", new ZeroArgFunction() {
             @Override
             public LuaValue call() {
-                Runner.base.setLocationRelativeTo(null);
+                Runner.base.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 - Runner.base.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2-Runner.pane.getHeight()/2);
                 return null;
             }
         });
@@ -93,19 +105,7 @@ public class system extends ZeroArgFunction {
                 return null;
             }
         });
-        Runner.pane.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                lastPressedKey = e.getKeyCode();
-            }
 
-            @Override
-            public void keyReleased(KeyEvent e){
-                super.keyReleased(e);
-                lastPressedKey = 0;
-            }
-        });
         lib.set("getPressedKey", new ZeroArgFunction() {
             @Override
             public LuaValue call() {
@@ -171,6 +171,27 @@ public class system extends ZeroArgFunction {
                     Object instance = classToLoad.getDeclaredConstructor().newInstance();
                     return (LuaValue) method.invoke(instance);
                 } catch (MalformedURLException | ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        lib.set("loadLibraryResource", new TwoArgFunction() {
+            @Override
+            public LuaValue call(LuaValue luaValue, LuaValue address) {
+                String path = luaValue.tojstring();
+                String addressLib = address.tojstring();
+                try {
+                    URLClassLoader child = new URLClassLoader(
+                            new URL[] { new URL(String.valueOf(Objects.requireNonNull(getClass().getClassLoader().getResource(path).toURI()))) },
+                            this.getClass().getClassLoader()
+                    );
+                    Class<?> classToLoad = Class.forName(addressLib + ".LibraryEntry", true, child);
+                    Method method = classToLoad.getDeclaredMethod("call");
+                    Object instance = classToLoad.getDeclaredConstructor().newInstance();
+                    return (LuaValue) method.invoke(instance);
+                } catch (MalformedURLException | ClassNotFoundException | NoSuchMethodException |
+                         InstantiationException | IllegalAccessException | InvocationTargetException |
+                         URISyntaxException e) {
                     throw new RuntimeException(e);
                 }
             }

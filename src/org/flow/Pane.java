@@ -48,38 +48,28 @@ public class Pane extends JPanel {
     }
 
     protected void paintComponent(Graphics g){
-        Graphics2D ext = (Graphics2D) g.create();
-        transform = ext.getTransform();
-        graphics.setDrawer(ext);
+        Graphics2D graphics2D = (Graphics2D) g.create();
+        AffineTransform transform = graphics2D.getTransform();
+        graphics.setDrawer(graphics2D);
         long currentTime = System.nanoTime();
-        ext.setRenderingHint(
-                RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        ext.setColor(bgcolor);
-        ext.fillRect(0, 0, getWidth(), getHeight());
-        ext.setColor(Color.WHITE);
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.setColor(bgcolor);
+        graphics2D.fillRect(0, 0, getWidth(), getHeight());
+        graphics2D.setColor(Color.WHITE);
         try {
-            if(start == 1) {
-                Runner.engine.eval("flow.draw("+dt+")");
+            if (start == 1) {
+                Runner.engine.eval("flow.draw(" + dt + ")");
             }
         } catch (ScriptException e) {
             throw new RuntimeException(e);
         }
         repaint();
-        if(getMousePosition() != null) {
-            cursorX = getMousePosition() != null ? getMousePosition().x : 0;
-            cursorY = getMousePosition() != null ? getMousePosition().y : 0;
-        }else{
-            cursorX = 0;
-            cursorY = 0;
+        if (getMousePosition() != null) {
+            cursorX = getMousePosition().x;
+            cursorY = getMousePosition().y;
         }
         fps = (int) counter.fps();
         dt = (float) ((currentTime - lastTime) / 1000000000.0); // Calculate delta time in seconds
         lastTime = currentTime;
-
-    }
-
-    public void setColor(Color one){
-        bgcolor = one;
     }
 }

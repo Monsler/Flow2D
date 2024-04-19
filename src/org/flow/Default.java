@@ -13,7 +13,7 @@ class Default {
                 "    graphics.setColor(\"#FFFFFF\")\n" +
                 "    if mode == 1 then\n" +
                 "        graphics.drawText(\"Wait,\", {graphics.width()/2-50, graphics.height()/2+10})\n" +
-                "        graphics.setFont(\"Consolas\", 14)" +
+                "        graphics.setFont(\"\", 14)" +
                 "        graphics.drawText(\"It is a library, not an application.\", {graphics.width()/2-150, graphics.height()/2+50})\n"+
                 "        mode = 1\n" +
                 "    else\n" +
