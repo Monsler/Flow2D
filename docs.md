@@ -415,7 +415,7 @@ Load example:
 local library = system.loadLibrary("Library.jar", "com.monsler.class")
 library.method()
 ```
-To create libraries you have to use Flow2D SDK, And Luaj (you can took it from a lib folder)
+To create libraries you have to use Flow2D SDK, And Luaj (you can take it out from a lib folder)
 
 # Other system module functions
 ```lua
