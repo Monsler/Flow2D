@@ -1,8 +1,8 @@
 # Flow2D
 <img src="https://github.com/Monsler/Flow2D/assets/105060825/8d6b7ca1-ba81-4035-bcbc-b17a9816cabe" style="width: 40%">
-> [!WARNING]
-> For now Flow2D is being rewritten in C to improve the performance and speed.
-
+[!WARNING]
+For now Flow2D is being rewritten in C to improve the performance and speed.<br>
+<br>
 <br>Flow2D Are free and open source game engine (framework), that allows you to create beautiful 2d games using lua.
 
 You can read documentation [here](https://github.com/Monsler/Flow2D/blob/main/docs.md).
