@@ -6,5 +6,5 @@
  * @author https://github.com/Monsler
  */
 int main(int argc, char** argv) {
-    initSimulator();
+    init_simulator();
 }
