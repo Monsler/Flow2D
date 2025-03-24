@@ -5,7 +5,13 @@
 #include <lauxlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "system.c"
+#include "image.c"
 
+/**
+ * This file is a part of Flow2D
+ * @author https://github.com/Monsler
+ */
 Color current_color = RED;
 
 int fill_rect_flow(lua_State* L) {
@@ -17,19 +23,22 @@ int fill_rect_flow(lua_State* L) {
     return 1;
 }
 
-int h2d(char c)
-{
+int draw_fps_flow(lua_State* L) {
+    int x = luaL_checkinteger(L, 1);
+    int y = luaL_checkinteger(L, 2);
+    DrawFPS(x, y);
+}
+
+int h2d(char c) {
     if ( c >= '0' && c <= '9' ) return c - '0';
     if ( c >= 'A' && c <= 'F' ) return c - 'A' + 10;
     if ( c >= 'a' && c <= 'f' ) return c - 'a' + 10;
     return 0;
 }
 
-Color hex_to_rgb(const char* s)
-{
+Color hex_to_rgb(const char* s) {
     Color c = {0, 0, 0, 255};
-    if (strlen(s) == 8)
-    {
+    if (strlen(s) == 8) {
         c.r = (h2d(s[0])<<4)+h2d(s[1]);
         c.g = (h2d(s[2])<<4)+h2d(s[3]);
         c.b = (h2d(s[4])<<4)+h2d(s[5]);
@@ -57,10 +66,20 @@ void init_simulator() {
     lua_setfield(L, -2, "fillRect");
     lua_pushcfunction(L, set_color_flow);
     lua_setfield(L, -2, "setColor");
+    lua_pushcfunction(L, draw_fps_flow);
+    lua_setfield(L, -2, "drawFps");
     lua_setglobal(L, "graphics");
+    init_system_lib(L);
 
     if (luaL_dofile(L, "main.lua") != LUA_OK) {
         printf("Error: %s\n", lua_tostring(L, -1));
+        lua_pop(L, 1);
+    }
+
+    lua_getglobal(L, "flow");
+    lua_getfield(L, -1, "start");
+    if (lua_pcall(L, 0, 0, 0) != LUA_OK) {
+        printf("Lua error: %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
     }
 
