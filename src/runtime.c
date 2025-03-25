@@ -12,7 +12,7 @@
  * This file is a part of Flow2D
  * @author https://github.com/Monsler
  */
-Color current_color = RED;
+Color current_color = WHITE;
 
 int fill_rect_flow(lua_State* L) {
     int x = luaL_checkinteger(L, 1);
@@ -21,6 +21,22 @@ int fill_rect_flow(lua_State* L) {
     int height = luaL_checkinteger(L, 4);
     DrawRectangle(x, y, width, height, current_color);
     return 1;
+}
+
+int draw_image_flow(lua_State* L) {
+    TextureWrapper* img = (TextureWrapper*) lua_touserdata(L, 1);
+    int x = luaL_checkinteger(L, 2);
+    int y = luaL_checkinteger(L, 3);
+    DrawTexture(img->texture, x, y, WHITE);
+    return 1;
+}
+
+int scale_image_flow(lua_State* L) {
+    TextureWrapper* img = (TextureWrapper*) lua_touserdata(L, 1);
+    int width = luaL_checkinteger(L, 2);
+    int height = luaL_checkinteger(L, 3);
+    img->texture.width = width;
+    img->texture.height = height;
 }
 
 int draw_fps_flow(lua_State* L) {
@@ -48,11 +64,25 @@ Color hex_to_rgb(const char* s) {
 }
 
 int set_color_flow(lua_State* L) {
-    int nargs = lua_gettop(L);
     const char* hex = luaL_checkstring(L, 1);
     Color c = hex_to_rgb(hex);
     current_color = c;
     return 0;
+}
+
+int fill_round_flow(lua_State* L) {
+    int x = luaL_checkinteger(L, 1);
+    int y = luaL_checkinteger(L, 2);
+    int size = luaL_checkinteger(L, 3);
+    DrawCircle(x, y, size, current_color);
+}
+
+int draw_string_flow(lua_State* L) {
+    const char* text = luaL_checkstring(L, 1);
+    int x = luaL_checkinteger(L, 2);
+    int y = luaL_checkinteger(L, 3);
+    int font_size = luaL_checkinteger(L, 4);
+    DrawText(text, x, y, font_size, current_color);
 }
 
 void init_simulator() {
@@ -68,8 +98,17 @@ void init_simulator() {
     lua_setfield(L, -2, "setColor");
     lua_pushcfunction(L, draw_fps_flow);
     lua_setfield(L, -2, "drawFps");
+    lua_pushcfunction(L, fill_round_flow);
+    lua_setfield(L, -2, "fillOval");
+    lua_pushcfunction(L, draw_string_flow);
+    lua_setfield(L, -2, "drawString");
+    lua_pushcfunction(L, draw_image_flow);
+    lua_setfield(L, -2, "drawImage");
+    lua_pushcfunction(L, scale_image_flow);
+    lua_setfield(L, -2, "scaleImage");
     lua_setglobal(L, "graphics");
     init_system_lib(L);
+    init_image_lib(L);
 
     if (luaL_dofile(L, "main.lua") != LUA_OK) {
         printf("Error: %s\n", lua_tostring(L, -1));
