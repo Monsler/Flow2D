@@ -15,8 +15,8 @@ flow.start = function(args)
 end
 
 flow.draw = function()
-    graphics.setColor("#FF0000")
-    graphics.fillRect({25, 25, 50, 50})
+    graphics.setColor("FF0000FF")
+    graphics.fillRect(25, 25, 50, 50)
 end
 ```
 result:<br>
